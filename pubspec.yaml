@@ -28,9 +28,22 @@ dependencies:
   # Local storage
   hive_ce: ^2.19.3
   hive_ce_flutter: ^2.3.4
-
+  shared_preferences: ^2.5.5
+  
   # Package info
   package_info_plus: ^10.1.0
+
+  # Notifications
+  flutter_local_notifications: ^21.0.0
+  local_notifier: ^0.1.6
+
+  # Device
+  device_info_plus: ^13.1.0
+
+  # Webview
+  flutter_inappwebview: ^6.1.5
+
+  url_launcher: ^6.3.2
 
 dev_dependencies:
   flutter_test:
