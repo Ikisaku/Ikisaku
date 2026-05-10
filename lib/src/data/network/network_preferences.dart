@@ -15,7 +15,6 @@ class NetworkPreferences {
     _prefs ??= await SharedPreferences.getInstance();
   }
 
-  /// Logging verboso habilitado
   late final Preference<bool> verboseLogging = Preference<bool>(
     () async {
       await _ensureInitialized();

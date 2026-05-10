@@ -45,6 +45,9 @@ dependencies:
 
   url_launcher: ^6.3.2
   http: ^1.6.0
+  flutter_markdown_plus: ^1.0.7
+  freezed: ^3.2.5
+  freezed_annotation: ^3.1.0
 
 dev_dependencies:
   flutter_test:

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ikisaku/src/domain/base/base_preferences.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../base/base_preferences.dart';
 
 final uiPreferencesProvider = Provider<UiPreferences>((ref) {
   return UiPreferences();
