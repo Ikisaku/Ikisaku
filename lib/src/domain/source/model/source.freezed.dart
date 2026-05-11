@@ -15,8 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Source {
 
- int get id; String get name; String get lang; bool get isNsfw; String? get iconUrl;// WASM specific fields (en lugar de APK)
- String get wasmId; String? get wasmVersion; DateTime? get lastUpdate; bool get isInstalled; bool get hasUpdate;
+ int get id; String get name; String get lang; Pin get pin; bool get isUsedLast; bool get isEnabled; bool get isStub; bool get supportsLatest;
 /// Create a copy of Source
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -29,16 +28,16 @@ $SourceCopyWith<Source> get copyWith => _$SourceCopyWithImpl<Source>(this as Sou
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Source&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.lang, lang) || other.lang == lang)&&(identical(other.isNsfw, isNsfw) || other.isNsfw == isNsfw)&&(identical(other.iconUrl, iconUrl) || other.iconUrl == iconUrl)&&(identical(other.wasmId, wasmId) || other.wasmId == wasmId)&&(identical(other.wasmVersion, wasmVersion) || other.wasmVersion == wasmVersion)&&(identical(other.lastUpdate, lastUpdate) || other.lastUpdate == lastUpdate)&&(identical(other.isInstalled, isInstalled) || other.isInstalled == isInstalled)&&(identical(other.hasUpdate, hasUpdate) || other.hasUpdate == hasUpdate));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Source&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.lang, lang) || other.lang == lang)&&(identical(other.pin, pin) || other.pin == pin)&&(identical(other.isUsedLast, isUsedLast) || other.isUsedLast == isUsedLast)&&(identical(other.isEnabled, isEnabled) || other.isEnabled == isEnabled)&&(identical(other.isStub, isStub) || other.isStub == isStub)&&(identical(other.supportsLatest, supportsLatest) || other.supportsLatest == supportsLatest));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,lang,isNsfw,iconUrl,wasmId,wasmVersion,lastUpdate,isInstalled,hasUpdate);
+int get hashCode => Object.hash(runtimeType,id,name,lang,pin,isUsedLast,isEnabled,isStub,supportsLatest);
 
 @override
 String toString() {
-  return 'Source(id: $id, name: $name, lang: $lang, isNsfw: $isNsfw, iconUrl: $iconUrl, wasmId: $wasmId, wasmVersion: $wasmVersion, lastUpdate: $lastUpdate, isInstalled: $isInstalled, hasUpdate: $hasUpdate)';
+  return 'Source(id: $id, name: $name, lang: $lang, pin: $pin, isUsedLast: $isUsedLast, isEnabled: $isEnabled, isStub: $isStub, supportsLatest: $supportsLatest)';
 }
 
 
@@ -49,7 +48,7 @@ abstract mixin class $SourceCopyWith<$Res>  {
   factory $SourceCopyWith(Source value, $Res Function(Source) _then) = _$SourceCopyWithImpl;
 @useResult
 $Res call({
- int id, String name, String lang, bool isNsfw, String? iconUrl, String wasmId, String? wasmVersion, DateTime? lastUpdate, bool isInstalled, bool hasUpdate
+ int id, String name, String lang, Pin pin, bool isUsedLast, bool isEnabled, bool isStub, bool supportsLatest
 });
 
 
@@ -66,18 +65,16 @@ class _$SourceCopyWithImpl<$Res>
 
 /// Create a copy of Source
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? lang = null,Object? isNsfw = null,Object? iconUrl = freezed,Object? wasmId = null,Object? wasmVersion = freezed,Object? lastUpdate = freezed,Object? isInstalled = null,Object? hasUpdate = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? lang = null,Object? pin = null,Object? isUsedLast = null,Object? isEnabled = null,Object? isStub = null,Object? supportsLatest = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,lang: null == lang ? _self.lang : lang // ignore: cast_nullable_to_non_nullable
-as String,isNsfw: null == isNsfw ? _self.isNsfw : isNsfw // ignore: cast_nullable_to_non_nullable
-as bool,iconUrl: freezed == iconUrl ? _self.iconUrl : iconUrl // ignore: cast_nullable_to_non_nullable
-as String?,wasmId: null == wasmId ? _self.wasmId : wasmId // ignore: cast_nullable_to_non_nullable
-as String,wasmVersion: freezed == wasmVersion ? _self.wasmVersion : wasmVersion // ignore: cast_nullable_to_non_nullable
-as String?,lastUpdate: freezed == lastUpdate ? _self.lastUpdate : lastUpdate // ignore: cast_nullable_to_non_nullable
-as DateTime?,isInstalled: null == isInstalled ? _self.isInstalled : isInstalled // ignore: cast_nullable_to_non_nullable
-as bool,hasUpdate: null == hasUpdate ? _self.hasUpdate : hasUpdate // ignore: cast_nullable_to_non_nullable
+as String,pin: null == pin ? _self.pin : pin // ignore: cast_nullable_to_non_nullable
+as Pin,isUsedLast: null == isUsedLast ? _self.isUsedLast : isUsedLast // ignore: cast_nullable_to_non_nullable
+as bool,isEnabled: null == isEnabled ? _self.isEnabled : isEnabled // ignore: cast_nullable_to_non_nullable
+as bool,isStub: null == isStub ? _self.isStub : isStub // ignore: cast_nullable_to_non_nullable
+as bool,supportsLatest: null == supportsLatest ? _self.supportsLatest : supportsLatest // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }
@@ -125,7 +122,10 @@ return $default(_that);case _:
 final _that = this;
 switch (_that) {
 case _Source():
-return $default(_that);}
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
 }
 /// A variant of `map` that fallback to returning `null`.
 ///
@@ -160,10 +160,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String name,  String lang,  bool isNsfw,  String? iconUrl,  String wasmId,  String? wasmVersion,  DateTime? lastUpdate,  bool isInstalled,  bool hasUpdate)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String name,  String lang,  Pin pin,  bool isUsedLast,  bool isEnabled,  bool isStub,  bool supportsLatest)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Source() when $default != null:
-return $default(_that.id,_that.name,_that.lang,_that.isNsfw,_that.iconUrl,_that.wasmId,_that.wasmVersion,_that.lastUpdate,_that.isInstalled,_that.hasUpdate);case _:
+return $default(_that.id,_that.name,_that.lang,_that.pin,_that.isUsedLast,_that.isEnabled,_that.isStub,_that.supportsLatest);case _:
   return orElse();
 
 }
@@ -181,10 +181,13 @@ return $default(_that.id,_that.name,_that.lang,_that.isNsfw,_that.iconUrl,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String name,  String lang,  bool isNsfw,  String? iconUrl,  String wasmId,  String? wasmVersion,  DateTime? lastUpdate,  bool isInstalled,  bool hasUpdate)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String name,  String lang,  Pin pin,  bool isUsedLast,  bool isEnabled,  bool isStub,  bool supportsLatest)  $default,) {final _that = this;
 switch (_that) {
 case _Source():
-return $default(_that.id,_that.name,_that.lang,_that.isNsfw,_that.iconUrl,_that.wasmId,_that.wasmVersion,_that.lastUpdate,_that.isInstalled,_that.hasUpdate);}
+return $default(_that.id,_that.name,_that.lang,_that.pin,_that.isUsedLast,_that.isEnabled,_that.isStub,_that.supportsLatest);case _:
+  throw StateError('Unexpected subclass');
+
+}
 }
 /// A variant of `when` that fallback to returning `null`
 ///
@@ -198,10 +201,10 @@ return $default(_that.id,_that.name,_that.lang,_that.isNsfw,_that.iconUrl,_that.
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String name,  String lang,  bool isNsfw,  String? iconUrl,  String wasmId,  String? wasmVersion,  DateTime? lastUpdate,  bool isInstalled,  bool hasUpdate)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String name,  String lang,  Pin pin,  bool isUsedLast,  bool isEnabled,  bool isStub,  bool supportsLatest)?  $default,) {final _that = this;
 switch (_that) {
 case _Source() when $default != null:
-return $default(_that.id,_that.name,_that.lang,_that.isNsfw,_that.iconUrl,_that.wasmId,_that.wasmVersion,_that.lastUpdate,_that.isInstalled,_that.hasUpdate);case _:
+return $default(_that.id,_that.name,_that.lang,_that.pin,_that.isUsedLast,_that.isEnabled,_that.isStub,_that.supportsLatest);case _:
   return null;
 
 }
@@ -212,21 +215,18 @@ return $default(_that.id,_that.name,_that.lang,_that.isNsfw,_that.iconUrl,_that.
 /// @nodoc
 @JsonSerializable()
 
-class _Source implements Source {
-  const _Source({required this.id, required this.name, required this.lang, this.isNsfw = false, this.iconUrl, required this.wasmId, this.wasmVersion, this.lastUpdate, this.isInstalled = false, this.hasUpdate = false});
+class _Source extends Source {
+  const _Source({required this.id, required this.name, required this.lang, this.pin = Pin.unpinned, this.isUsedLast = false, this.isEnabled = true, this.isStub = false, this.supportsLatest = false}): super._();
   factory _Source.fromJson(Map<String, dynamic> json) => _$SourceFromJson(json);
 
 @override final  int id;
 @override final  String name;
 @override final  String lang;
-@override@JsonKey() final  bool isNsfw;
-@override final  String? iconUrl;
-// WASM specific fields (en lugar de APK)
-@override final  String wasmId;
-@override final  String? wasmVersion;
-@override final  DateTime? lastUpdate;
-@override@JsonKey() final  bool isInstalled;
-@override@JsonKey() final  bool hasUpdate;
+@override@JsonKey() final  Pin pin;
+@override@JsonKey() final  bool isUsedLast;
+@override@JsonKey() final  bool isEnabled;
+@override@JsonKey() final  bool isStub;
+@override@JsonKey() final  bool supportsLatest;
 
 /// Create a copy of Source
 /// with the given fields replaced by the non-null parameter values.
@@ -241,16 +241,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Source&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.lang, lang) || other.lang == lang)&&(identical(other.isNsfw, isNsfw) || other.isNsfw == isNsfw)&&(identical(other.iconUrl, iconUrl) || other.iconUrl == iconUrl)&&(identical(other.wasmId, wasmId) || other.wasmId == wasmId)&&(identical(other.wasmVersion, wasmVersion) || other.wasmVersion == wasmVersion)&&(identical(other.lastUpdate, lastUpdate) || other.lastUpdate == lastUpdate)&&(identical(other.isInstalled, isInstalled) || other.isInstalled == isInstalled)&&(identical(other.hasUpdate, hasUpdate) || other.hasUpdate == hasUpdate));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Source&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&(identical(other.lang, lang) || other.lang == lang)&&(identical(other.pin, pin) || other.pin == pin)&&(identical(other.isUsedLast, isUsedLast) || other.isUsedLast == isUsedLast)&&(identical(other.isEnabled, isEnabled) || other.isEnabled == isEnabled)&&(identical(other.isStub, isStub) || other.isStub == isStub)&&(identical(other.supportsLatest, supportsLatest) || other.supportsLatest == supportsLatest));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,lang,isNsfw,iconUrl,wasmId,wasmVersion,lastUpdate,isInstalled,hasUpdate);
+int get hashCode => Object.hash(runtimeType,id,name,lang,pin,isUsedLast,isEnabled,isStub,supportsLatest);
 
 @override
 String toString() {
-  return 'Source(id: $id, name: $name, lang: $lang, isNsfw: $isNsfw, iconUrl: $iconUrl, wasmId: $wasmId, wasmVersion: $wasmVersion, lastUpdate: $lastUpdate, isInstalled: $isInstalled, hasUpdate: $hasUpdate)';
+  return 'Source(id: $id, name: $name, lang: $lang, pin: $pin, isUsedLast: $isUsedLast, isEnabled: $isEnabled, isStub: $isStub, supportsLatest: $supportsLatest)';
 }
 
 
@@ -261,7 +261,7 @@ abstract mixin class _$SourceCopyWith<$Res> implements $SourceCopyWith<$Res> {
   factory _$SourceCopyWith(_Source value, $Res Function(_Source) _then) = __$SourceCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String name, String lang, bool isNsfw, String? iconUrl, String wasmId, String? wasmVersion, DateTime? lastUpdate, bool isInstalled, bool hasUpdate
+ int id, String name, String lang, Pin pin, bool isUsedLast, bool isEnabled, bool isStub, bool supportsLatest
 });
 
 
@@ -278,18 +278,16 @@ class __$SourceCopyWithImpl<$Res>
 
 /// Create a copy of Source
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? lang = null,Object? isNsfw = null,Object? iconUrl = freezed,Object? wasmId = null,Object? wasmVersion = freezed,Object? lastUpdate = freezed,Object? isInstalled = null,Object? hasUpdate = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? lang = null,Object? pin = null,Object? isUsedLast = null,Object? isEnabled = null,Object? isStub = null,Object? supportsLatest = null,}) {
   return _then(_Source(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,lang: null == lang ? _self.lang : lang // ignore: cast_nullable_to_non_nullable
-as String,isNsfw: null == isNsfw ? _self.isNsfw : isNsfw // ignore: cast_nullable_to_non_nullable
-as bool,iconUrl: freezed == iconUrl ? _self.iconUrl : iconUrl // ignore: cast_nullable_to_non_nullable
-as String?,wasmId: null == wasmId ? _self.wasmId : wasmId // ignore: cast_nullable_to_non_nullable
-as String,wasmVersion: freezed == wasmVersion ? _self.wasmVersion : wasmVersion // ignore: cast_nullable_to_non_nullable
-as String?,lastUpdate: freezed == lastUpdate ? _self.lastUpdate : lastUpdate // ignore: cast_nullable_to_non_nullable
-as DateTime?,isInstalled: null == isInstalled ? _self.isInstalled : isInstalled // ignore: cast_nullable_to_non_nullable
-as bool,hasUpdate: null == hasUpdate ? _self.hasUpdate : hasUpdate // ignore: cast_nullable_to_non_nullable
+as String,pin: null == pin ? _self.pin : pin // ignore: cast_nullable_to_non_nullable
+as Pin,isUsedLast: null == isUsedLast ? _self.isUsedLast : isUsedLast // ignore: cast_nullable_to_non_nullable
+as bool,isEnabled: null == isEnabled ? _self.isEnabled : isEnabled // ignore: cast_nullable_to_non_nullable
+as bool,isStub: null == isStub ? _self.isStub : isStub // ignore: cast_nullable_to_non_nullable
+as bool,supportsLatest: null == supportsLatest ? _self.supportsLatest : supportsLatest // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }

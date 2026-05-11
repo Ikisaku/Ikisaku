@@ -34,7 +34,11 @@ class GlobalExceptionHandler {
     debugPrint('Stack trace: $stack');
   }
 
-  static void showCrashScreen(BuildContext context, Object error, StackTrace stack) {
+  static void showCrashScreen(
+    BuildContext context,
+    Object error,
+    StackTrace stack,
+  ) {
     // TODO: Navegar a CrashActivity equivalente
     debugPrint('Showing crash screen for error: $error');
   }

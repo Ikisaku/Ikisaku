@@ -143,13 +143,13 @@ class _CloudflareWebViewState extends State<CloudflareWebView> {
         orElse: () => Cookie(name: '', value: ''),
       );
 
-      if (cfClearance.value.isNotEmpty) {
+      if (cfClearance.value.isNotEmpty == true) {
         debugPrint('Cloudflare cookie obtained: ${cfClearance.value}');
 
-        widget.onCookieObtained?.call(cfClearance.value);
+        widget.onCookieObtained?.call(cfClearance.value.toString());
 
         if (mounted) {
-          Navigator.of(context).pop(cfClearance.value);
+          Navigator.of(context).pop(cfClearance.value.toString());
         }
       }
     } catch (e) {

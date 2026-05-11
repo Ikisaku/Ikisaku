@@ -10,26 +10,26 @@ _Source _$SourceFromJson(Map<String, dynamic> json) => _Source(
   id: (json['id'] as num).toInt(),
   name: json['name'] as String,
   lang: json['lang'] as String,
-  isNsfw: json['isNsfw'] as bool? ?? false,
-  iconUrl: json['iconUrl'] as String?,
-  wasmId: json['wasmId'] as String,
-  wasmVersion: json['wasmVersion'] as String?,
-  lastUpdate: json['lastUpdate'] == null
-      ? null
-      : DateTime.parse(json['lastUpdate'] as String),
-  isInstalled: json['isInstalled'] as bool? ?? false,
-  hasUpdate: json['hasUpdate'] as bool? ?? false,
+  pin: $enumDecodeNullable(_$PinEnumMap, json['pin']) ?? Pin.unpinned,
+  isUsedLast: json['isUsedLast'] as bool? ?? false,
+  isEnabled: json['isEnabled'] as bool? ?? true,
+  isStub: json['isStub'] as bool? ?? false,
+  supportsLatest: json['supportsLatest'] as bool? ?? false,
 );
 
 Map<String, dynamic> _$SourceToJson(_Source instance) => <String, dynamic>{
   'id': instance.id,
   'name': instance.name,
   'lang': instance.lang,
-  'isNsfw': instance.isNsfw,
-  'iconUrl': instance.iconUrl,
-  'wasmId': instance.wasmId,
-  'wasmVersion': instance.wasmVersion,
-  'lastUpdate': instance.lastUpdate?.toIso8601String(),
-  'isInstalled': instance.isInstalled,
-  'hasUpdate': instance.hasUpdate,
+  'pin': _$PinEnumMap[instance.pin]!,
+  'isUsedLast': instance.isUsedLast,
+  'isEnabled': instance.isEnabled,
+  'isStub': instance.isStub,
+  'supportsLatest': instance.supportsLatest,
+};
+
+const _$PinEnumMap = {
+  Pin.unpinned: 'unpinned',
+  Pin.pinned: 'pinned',
+  Pin.actual: 'actual',
 };

@@ -12,7 +12,7 @@ class AppUpdateChecker {
       final response = await http.get(Uri.parse(_githubApiUrl));
       
       if (response.statusCode == 200) {
-        final data = json.decode(response.body);
+        final data = json.decode(response.body) as Map<String, dynamic>;
         final latestVersion = data['tag_name'] as String;
         final currentVersion = await _getCurrentVersion();
         
